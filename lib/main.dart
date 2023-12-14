@@ -4,8 +4,8 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:smart_fridge/client_environment_controller.dart';
 import 'package:smart_fridge/src/config/themes/app_theme.dart';
+import 'package:smart_fridge/src/features/onboarding/pages/onboarding_screen.dart';
 
 import 'main_injection_container.dart';
 
@@ -46,7 +46,7 @@ class SmartFridgeApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      home: AppClientEnvironmentController(),
+      home: AppOnboardingScreen(),
     );
   }
 }

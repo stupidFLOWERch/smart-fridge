@@ -4,6 +4,9 @@ import 'package:smart_fridge/src/ui_view/title_view.dart';
 
 import '../../top_bar.dart';
 import '../config/themes/app_theme.dart';
+import '../ui_view/area_list_view.dart';
+import '../ui_view/running_view.dart';
+import '../ui_view/workout_view.dart';
 
 class AppMarketScreen extends StatefulWidget {
   const AppMarketScreen({
@@ -90,54 +93,54 @@ class _AppMarketScreenState extends State<AppMarketScreen>
       ),
     );
 
-    // listViews.add(
-    //   WorkoutView(
-    //     animation: Tween<double>(begin: 0.0, end: 1.0).animate(
-    //       CurvedAnimation(
-    //         parent: widget.animationController!,
-    //         curve: Interval((1 / count) * 2, 1.0, curve: Curves.fastOutSlowIn),
-    //       ),
-    //     ),
-    //     animationController: widget.animationController!,
-    //   ),
-    // );
-    // listViews.add(
-    //   RunningView(
-    //     animation: Tween<double>(begin: 0.0, end: 1.0).animate(
-    //       CurvedAnimation(
-    //         parent: widget.animationController!,
-    //         curve: Interval((1 / count) * 3, 1.0, curve: Curves.fastOutSlowIn),
-    //       ),
-    //     ),
-    //     animationController: widget.animationController!,
-    //   ),
-    // );
-    //
-    // listViews.add(
-    //   TitleView(
-    //     titleTxt: 'Area of focus',
-    //     subTxt: 'more',
-    //     animation: Tween<double>(begin: 0.0, end: 1.0).animate(
-    //       CurvedAnimation(
-    //         parent: widget.animationController!,
-    //         curve: Interval((1 / count) * 4, 1.0, curve: Curves.fastOutSlowIn),
-    //       ),
-    //     ),
-    //     animationController: widget.animationController!,
-    //   ),
-    // );
-    //
-    // listViews.add(
-    //   AreaListView(
-    //     mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
-    //       CurvedAnimation(
-    //         parent: widget.animationController!,
-    //         curve: Interval((1 / count) * 5, 1.0, curve: Curves.fastOutSlowIn),
-    //       ),
-    //     ),
-    //     mainScreenAnimationController: widget.animationController!,
-    //   ),
-    // );
+    listViews.add(
+      WorkoutView(
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(
+          CurvedAnimation(
+            parent: widget.animationController!,
+            curve: Interval((1 / count) * 2, 1.0, curve: Curves.fastOutSlowIn),
+          ),
+        ),
+        animationController: widget.animationController!,
+      ),
+    );
+    listViews.add(
+      RunningView(
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(
+          CurvedAnimation(
+            parent: widget.animationController!,
+            curve: Interval((1 / count) * 3, 1.0, curve: Curves.fastOutSlowIn),
+          ),
+        ),
+        animationController: widget.animationController!,
+      ),
+    );
+
+    listViews.add(
+      TitleView(
+        titleTxt: 'Area of focus',
+        subTxt: 'more',
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(
+          CurvedAnimation(
+            parent: widget.animationController!,
+            curve: Interval((1 / count) * 4, 1.0, curve: Curves.fastOutSlowIn),
+          ),
+        ),
+        animationController: widget.animationController!,
+      ),
+    );
+
+    listViews.add(
+      AreaListView(
+        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
+          CurvedAnimation(
+            parent: widget.animationController!,
+            curve: Interval((1 / count) * 5, 1.0, curve: Curves.fastOutSlowIn),
+          ),
+        ),
+        mainScreenAnimationController: widget.animationController!,
+      ),
+    );
   }
 
   Future<bool> getData() async {

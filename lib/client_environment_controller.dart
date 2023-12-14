@@ -3,12 +3,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart' as rive;
 import 'package:smart_fridge/custom_drawer/drawer.dart';
-import 'package:smart_fridge/custom_drawer/drawer_toggle_button.dart';
-import 'package:smart_fridge/custom_drawer/rive_icon_controller.dart';
+import 'package:smart_fridge/hotel_booking/hotel_home_screen.dart';
 import 'package:smart_fridge/src/bottom_navigation_view/navigation_bar_view.dart';
 import 'package:smart_fridge/src/config/themes/app_theme.dart';
 import 'package:smart_fridge/src/diary/screen.dart';
-import 'package:smart_fridge/src/market/screen.dart';
+import 'package:smart_fridge/src/features/notifications/presentation/notification_screen.dart';
 import 'package:smart_fridge/src/models/navigation_bar_icon.dart';
 
 /// Front controller of the app after the successful login attempt.
@@ -191,35 +190,35 @@ class _AppClientEnvironmentControllerState
                             : animation.value * 120),
                     child: navigationBar(),
                   ),
-                  AnimatedPositioned(
-                    duration: const Duration(milliseconds: 200),
-                    curve: Curves.fastOutSlowIn,
-                    left: isDrawerCloseBool ? 0 : 220,
-                    top: 30,
-                    child: DrawerToggleButton(
-                      iconOnInit: (artboard) {
-                        rive.StateMachineController controller =
-                            RiveIconController.getRiveController(
-                          artboard,
-                          stateMachineName: "State Machine",
-                        );
-                        isDrawerClose =
-                            controller.findSMI("isOpen") as rive.SMIBool;
-                        isDrawerClose.value = true;
-                      },
-                      press: () {
-                        isDrawerClose.value = !isDrawerClose.value;
-
-                        isDrawerCloseBool
-                            ? _drawerAnimationController.forward()
-                            : _drawerAnimationController.reverse();
-
-                        setState(() {
-                          isDrawerCloseBool = isDrawerClose.value;
-                        });
-                      },
-                    ),
-                  )
+                  // AnimatedPositioned(
+                  //   duration: const Duration(milliseconds: 200),
+                  //   curve: Curves.fastOutSlowIn,
+                  //   left: isDrawerCloseBool ? 0 : 220,
+                  //   top: 30,
+                  //   child: DrawerToggleButton(
+                  //     iconOnInit: (artboard) {
+                  //       rive.StateMachineController controller =
+                  //           RiveIconController.getRiveController(
+                  //         artboard,
+                  //         stateMachineName: "State Machine",
+                  //       );
+                  //       isDrawerClose =
+                  //           controller.findSMI("isOpen") as rive.SMIBool;
+                  //       isDrawerClose.value = true;
+                  //     },
+                  //     press: () {
+                  //       isDrawerClose.value = !isDrawerClose.value;
+                  //
+                  //       isDrawerCloseBool
+                  //           ? _drawerAnimationController.forward()
+                  //           : _drawerAnimationController.reverse();
+                  //
+                  //       setState(() {
+                  //         isDrawerCloseBool = isDrawerClose.value;
+                  //       });
+                  //     },
+                  //   ),
+                  // )
                 ],
               );
             }
@@ -269,8 +268,10 @@ class _AppClientEnvironmentControllerState
                     );
                     break;
                   case 1:
-                    tabBody = AppMarketScreen(
-                        animationController: pageAnimationController);
+                    tabBody = GroceryScreen();
+                    break;
+                  case 2:
+                    tabBody = NotificationScreen();
                     break;
                   default:
                     break;

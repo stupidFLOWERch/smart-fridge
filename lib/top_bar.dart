@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:smart_fridge/src/config/themes/app_theme.dart';
 
-class AppClientTopBar extends StatelessWidget {
+import 'hotel_booking/calendar_popup_view.dart';
+
+class AppClientTopBar extends StatefulWidget {
   const AppClientTopBar({
     super.key,
     required this.topBarOpacity,
@@ -18,27 +20,37 @@ class AppClientTopBar extends StatelessWidget {
   final Animation<double>? animation;
 
   @override
+  State<AppClientTopBar> createState() => _AppClientTopBarState();
+}
+
+class _AppClientTopBarState extends State<AppClientTopBar>
+    with TickerProviderStateMixin {
+  DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now().add(const Duration(days: 5));
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         AnimatedBuilder(
-          animation: animationController!,
+          animation: widget.animationController!,
           builder: (BuildContext context, Widget? child) {
             return FadeTransition(
-              opacity: animation!,
+              opacity: widget.animation!,
               child: Transform(
                 transform: Matrix4.translationValues(
-                    0.0, 30 * (1.0 - animation!.value), 0.0),
+                    0.0, 30 * (1.0 - widget.animation!.value), 0.0),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: AppTheme.background.withOpacity(topBarOpacity),
+                    color:
+                        AppTheme.background.withOpacity(widget.topBarOpacity),
                     borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(18.0),
                         bottomRight: Radius.circular(18.0)),
                     boxShadow: <BoxShadow>[
                       BoxShadow(
-                        color:
-                            AppTheme.lightGrey.withOpacity(0.2 * topBarOpacity),
+                        color: AppTheme.lightGrey
+                            .withOpacity(0.2 * widget.topBarOpacity),
                         offset: const Offset(1.1, 1.1),
                         blurRadius: 8.0,
                         spreadRadius: 10.0,
@@ -54,8 +66,8 @@ class AppClientTopBar extends StatelessWidget {
                         padding: EdgeInsets.only(
                           left: 16,
                           right: 16,
-                          top: 16 - 8.0 * topBarOpacity,
-                          bottom: 12 - 8.0 * topBarOpacity,
+                          top: 16 - 8.0 * widget.topBarOpacity,
+                          bottom: 12 - 8.0 * widget.topBarOpacity,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -64,18 +76,18 @@ class AppClientTopBar extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  title,
+                                  widget.title,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w700,
-                                    fontSize: 22 + 6 - 6 * topBarOpacity,
+                                    fontSize: 22 + 6 - 6 * widget.topBarOpacity,
                                     letterSpacing: 1.2,
                                     color: AppTheme.darkerText,
                                   ),
                                 ),
                               ),
                             ),
-                            if (withDateModification) ...[
+                            if (widget.withDateModification) ...[
                               SizedBox(
                                 height: 38,
                                 width: 38,
@@ -93,33 +105,54 @@ class AppClientTopBar extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  left: 8,
-                                  right: 8,
-                                ),
-                                child: Row(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 8),
-                                      child: Icon(
-                                        Icons.calendar_today,
-                                        color: AppTheme.grey,
-                                        size: 18,
-                                      ),
+                              Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  focusColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  splashColor: Colors.grey.withOpacity(0.2),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(4.0),
+                                  ),
+                                  onTap: () {
+                                    FocusScope.of(context)
+                                        .requestFocus(FocusNode());
+                                    // setState(() {
+                                    //   isDatePopupOpen = true;
+                                    // });
+                                    showDemoDialog(context: context);
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      left: 8,
+                                      right: 8,
                                     ),
-                                    Text(
-                                      '15 May',
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontFamily: AppTheme.fontName,
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 18,
-                                        letterSpacing: -0.2,
-                                        color: AppTheme.darkerText,
-                                      ),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 8),
+                                          child: Icon(
+                                            Icons.calendar_today,
+                                            color: AppTheme.grey,
+                                            size: 18,
+                                          ),
+                                        ),
+                                        Text(
+                                          '15 May',
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontFamily: AppTheme.fontName,
+                                            fontWeight: FontWeight.normal,
+                                            fontSize: 18,
+                                            letterSpacing: -0.2,
+                                            color: AppTheme.darkerText,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
                               SizedBox(
@@ -150,6 +183,26 @@ class AppClientTopBar extends StatelessWidget {
           },
         )
       ],
+    );
+  }
+
+  void showDemoDialog({BuildContext? context}) {
+    showDialog<dynamic>(
+      context: context!,
+      builder: (BuildContext context) => CalendarPopupView(
+        barrierDismissible: true,
+        minimumDate: DateTime.now(),
+        //  maximumDate: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day + 10),
+        initialEndDate: endDate,
+        initialStartDate: startDate,
+        onApplyClick: (DateTime startData, DateTime endData) {
+          setState(() {
+            startDate = startData;
+            endDate = endData;
+          });
+        },
+        onCancelClick: () {},
+      ),
     );
   }
 }
