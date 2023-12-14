@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:smart_fridge/hotel_booking/hotel_list_view.dart';
-import 'package:smart_fridge/hotel_booking/model/grocery_list_data.dart';
+import 'package:smart_fridge/grocery_listings/hotel_list_view.dart';
+import 'package:smart_fridge/grocery_listings/model/grocery_list_data.dart';
 
 import '../src/config/themes/app_theme.dart';
 import 'filters_screen.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_fridge/src/config/themes/app_theme.dart';
 
-import 'hotel_booking/calendar_popup_view.dart';
+import 'grocery_listings/calendar_popup_view.dart';
 
 class AppClientTopBar extends StatefulWidget {
   const AppClientTopBar({

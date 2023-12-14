@@ -52,6 +52,10 @@ class NotificationListView extends StatelessWidget {
                           children: <Widget>[
                             AspectRatio(
                               aspectRatio: 2,
+                              child: Image.asset(
+                                groceryData!.imagePath,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                             Container(
                               color: AppTheme.buildLightTheme().backgroundColor,
